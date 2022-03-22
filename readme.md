@@ -1,4 +1,5 @@
-Jack Yang 30062393
+Local chat
+Node io, javascript, html, css
 
 > npm install
 > node index.js
