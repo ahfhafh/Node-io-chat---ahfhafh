@@ -1,5 +1,5 @@
 /* Based on socket io chat app code template */
-var socket = io("localhost:3000");
+var socket = io();
 
 var input_nickname = document.getElementById('input_nickname');
 var input_color = document.getElementById('input_color');
