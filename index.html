@@ -1,47 +1,50 @@
 <!-- Based on socket io chat app code template -->
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Simple chat app</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="welcome_form_modal" class="modal">
-      <form id="welcome_form" class="modal-content">  
-        <div class="modal_inputs">
-          <input id="input_nickname" type="text" placeholder="Nickname" name="nickname">
-          <select id="input_color" name="colors">
-            <option value="#008000">Green</option>
-            <option value="Blue">Blue</option>
-            <option value="Red">Red</option>
-            <option value="Orange">Orange</option>
-          </select>
-        </div>
-        <br>
-        <div class="modal_buttons">
-          <button type="button" class="close_btn">Cancel</button>
-          <button type="submit" class="close_btn">Ok</button>
-        </div>
-      </form>
+        <form id="welcome_form" class="modal-content">
+            <div class="modal_inputs">
+                <input id="input_nickname" type="text" placeholder="Nickname" name="nickname">
+                <select id="input_color" name="colors">
+                    <option value="#008000">Green</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Red">Red</option>
+                    <option value="Orange">Orange</option>
+                </select>
+            </div>
+            <br>
+            <div class="modal_buttons">
+                <button type="button" class="close_btn">Cancel</button>
+                <button type="submit" class="close_btn">Ok</button>
+            </div>
+        </form>
     </div>
-    
+
     <div class="col-4">
-      <h1>Users</h1>
-      <ul id="users"></ul>
+        <h1>Users</h1>
+        <ul id="users"></ul>
     </div>
     <div class="col-8">
-      <button onclick="show_users()" id="show_users">Users</button>
-      <ul id="messages"></ul>
-      <form id="chat_form" action="">
-        <input id="chat_input" autocomplete="off"/>
-        <button>Send</button>
-        <button id="change_nickn">Leave</button>
-      </form>
+        <button onclick="show_users()" id="show_users">Users</button>
+        <ul id="messages"></ul>
+        <form id="chat_form" action="">
+            <input id="chat_input" autocomplete="off" />
+            <button>Send</button>
+            <button id="change_nickn">Leave</button>
+        </form>
     </div>
     <div id="snackbar"></div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/client.js"></script>
-  </body>
+</body>
+
 </html>
