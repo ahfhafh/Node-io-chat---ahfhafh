@@ -182,14 +182,14 @@ socket.on('chat message', (msg) => {
     let time = new Date(msg.time);
     msg_name.textContent = msg.nickname;
     msg_text.textContent = msg.text;
-    msg_time.textContent = (time.getHours()<10?'0':'') + time.getHours() + ":" + 
-        (time.getMinutes()<10?'0':'') + time.getMinutes();
+    msg_time.textContent = (time.getHours() < 10 ? '0' : '') + time.getHours() + ":" +
+        (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
     if (msg.nickname === nickname) {    // current client sending
         // make it right aligned and shift timestamp to left of message
         msg_item.style.cssText = 'float: right; margin-right: 16px; align-self: flex-end;';
         msg_name.style.cssText = 'float: right; margin-right: 16px;';
         msg_time.style.cssText = 'margin-right: 5px;'
-        msg_text.style.cssText = 'background:'+msg.color + '; font-weight: bold;';
+        msg_text.style.cssText = 'background:' + msg.color + '; font-weight: bold;';
         msg_textntime.style.cssText = 'clear:right;'
 
         msg_textntime.appendChild(msg_time);
@@ -199,7 +199,7 @@ socket.on('chat message', (msg) => {
     } else {    // other users sending
         // make it left aligned and shift timestamp to right of message
         msg_name.style.cssText = 'margin-left: 16px;';
-        msg_text.style.cssText = 'background:'+msg.color;
+        msg_text.style.cssText = 'background:' + msg.color;
         msg_time.style.cssText = 'margin-left: 5px;'
 
         msg_textntime.appendChild(msg_text);
@@ -213,7 +213,7 @@ socket.on('chat message', (msg) => {
 
 // load chat history
 socket.on('load_chat_history', (chat_log) => {
-    chat_log.forEach( (e) => {
+    chat_log.forEach((e) => {
         let msg_item = document.createElement('li');
         let msg_name = document.createElement('div');
         let msg_textntime = document.createElement('div');
@@ -227,20 +227,20 @@ socket.on('load_chat_history', (chat_log) => {
         let time = new Date(e.time);
         msg_name.textContent = e.nickname;
         msg_text.textContent = e.text;
-        msg_time.textContent = (time.getHours()<10?'0':'') + time.getHours() + ":" + 
-            (time.getMinutes()<10?'0':'') + time.getMinutes();
+        msg_time.textContent = (time.getHours() < 10 ? '0' : '') + time.getHours() + ":" +
+            (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
         msg_textntime.appendChild(msg_text);
         msg_textntime.appendChild(msg_time);
         msg_item.appendChild(msg_name);
         msg_item.appendChild(msg_textntime);
-        messages.appendChild(msg_item);  
-        messages.scrollTop = messages.scrollHeight; 
+        messages.appendChild(msg_item);
+        messages.scrollTop = messages.scrollHeight;
     });
 })
 
 // load chat users
 socket.on('load_chat_users', (users) => {
-    users.forEach( (e) => {
+    users.forEach((e) => {
         chat_users.push(e);
         let user_item = document.createElement('li');
         user_item.textContent = e;
@@ -254,7 +254,7 @@ function user_notification(message) {
     x.textContent = message;
 
     x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 }
 
 // show/hide users when button is clicked on mobile displays 
@@ -272,7 +272,7 @@ function show_users() {
 }
 
 // set to default state when changing between mobile and desktop
-window.addEventListener('resize', function() {
+window.addEventListener('resize', function () {
     if (this.window.innerWidth > 768) {
         users_sidebar[0].style.display = "block";
         users_sidebar[0].style.position = "absolute";
@@ -287,15 +287,15 @@ window.addEventListener('resize', function() {
 
 // removes nickname from displayed list and chat_users list
 function removeUser(nn) {
-     // remove user from list of users
-     const i = chat_users.indexOf(nn);
-     if (i > -1) {
-         chat_users.splice(i, 1);
-     }
-     // remove user from displayed users
-     var user_items = document.evaluate("//li[contains(text(),'"+nn+"')]", 
-         document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-     if (user_items !== null) {
-         user_items.remove();
-     }
+    // remove user from list of users
+    const i = chat_users.indexOf(nn);
+    if (i > -1) {
+        chat_users.splice(i, 1);
+    }
+    // remove user from displayed users
+    var user_items = document.evaluate("//li[contains(text(),'" + nn + "')]",
+        document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    if (user_items !== null) {
+        user_items.remove();
+    }
 }
