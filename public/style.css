@@ -1,7 +1,7 @@
 /* Based on socket io chat app code template */
 
 body {
-  margin: 0;
+  margin-top: calc(5vh/2);
   background: url("/3142803.webp") no-repeat center center fixed;
   /* https://wallpaperaccess.com/colors-desktop */
   background-size: cover;
@@ -75,10 +75,15 @@ body {
 .col-4 {
   display: block;
   width: 360px;
-  height: 100vh;
+  height: 95vh;
   float: left;
+  margin: 0 40px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 24px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
-  background-color: rgba(0, 0, 0, 0.25);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 1);
 }
 
 .col-4>h1 {
@@ -94,9 +99,15 @@ body {
 }
 
 .col-8 {
-  height: 100vh;
-  margin-left: 360px;
+  height: 95vh;
+  margin: 0px 40px 0px 440px;
   padding-left: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 24px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 1);
 }
 
 #chat_form {
@@ -104,10 +115,11 @@ body {
   position: fixed;
   display: flex;
   bottom: 0;
-  left: 360px;
+  left: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.25);
-  padding: 5px 0 5px 0;
+  border-radius: 0 0 24px 24px;
+  padding: 5px 10px 5px 5px;
   height: 36px;
   backdrop-filter: blur(10px);
 }
@@ -142,7 +154,7 @@ body {
   display: flex;
   flex-direction: column-reverse;
   justify-content: flex-start;
-  height: calc(100vh - 46px);
+  height: calc(95vh - 46px);
   /* give space for input form at bottom */
   list-style-type: none;
   margin: 0;
@@ -199,7 +211,7 @@ body {
   padding: 5px 10px;
   right: 32px;
   top: 16px;
-  z-index: 2;
+  z-index: 3;
   background-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -286,16 +298,32 @@ body {
 
 
 @media (max-width: 768px) {
+  body {
+    margin: 0;
+  }
+
   .col-4 {
     display: none;
+    z-index: 2;
+    height: 100vh;
+    border-radius: 0;
+    margin-left: 0;
   }
 
   .col-8 {
+    height: 100vh;
     margin-left: 0;
+    margin-right: 0;
+    border-radius: 0;
   }
 
   #chat_form {
     left: 0;
+    border-radius: 0;
+  }
+
+  #messages {
+    height: calc(100vh - 46px);
   }
 
   #messages>li>div>p {
