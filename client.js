@@ -174,65 +174,48 @@ socket.on('c_change', (nn, new_c) => {
 
 // receive chat message
 socket.on('chat message', (msg) => {
-    let msg_item = document.createElement('li');
-    let msg_name = document.createElement('div');
-    let msg_textntime = document.createElement('div');
-    let msg_text = document.createElement('p');
-    let msg_time = document.createElement('span');
-    let time = new Date(msg.time);
-    msg_name.textContent = msg.nickname;
-    msg_text.textContent = msg.text;
-    msg_time.textContent = (time.getHours() < 10 ? '0' : '') + time.getHours() + ":" +
-        (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
+    let msg_item;
     if (msg.nickname === nickname) {    // current client sending
-        // make it right aligned and shift timestamp to left of message
-        msg_item.style.cssText = 'float: right; margin-right: 16px; align-self: flex-end;';
-        msg_name.style.cssText = 'float: right; margin-right: 16px;';
-        msg_time.style.cssText = 'margin-right: 5px;'
-        msg_text.style.cssText = 'background:' + msg.color + '; font-weight: bold;';
-        msg_textntime.style.cssText = 'clear:right;'
-
-        msg_textntime.appendChild(msg_time);
-        msg_textntime.appendChild(msg_text);
-        msg_item.appendChild(msg_name);
-        msg_item.appendChild(msg_textntime);
+        msg_item = display_clientUser_msg();
     } else {    // other users sending
         // make it left aligned and shift timestamp to right of message
-        msg_name.style.cssText = 'margin-left: 16px;';
-        msg_text.style.cssText = 'background:' + msg.color;
-        msg_time.style.cssText = 'margin-left: 5px;'
-
-        msg_textntime.appendChild(msg_text);
-        msg_textntime.appendChild(msg_time);
-        msg_item.appendChild(msg_name);
-        msg_item.appendChild(msg_textntime);
+        msg_item = display_otherUser_msg(msg);
     }
     messages.prepend(msg_item);
     messages.scrollTop = messages.scrollHeight;
-});
 
-// load chat history
-socket.on('load_chat_history', (chat_log) => {
-    chat_log.forEach((e) => {
+    function display_clientUser_msg() {
         let msg_item = document.createElement('li');
         let msg_name = document.createElement('div');
         let msg_textntime = document.createElement('div');
         let msg_text = document.createElement('p');
         let msg_time = document.createElement('span');
 
-        msg_text.style.cssText = 'background: ' + e.color;
-        msg_name.style.cssText = 'margin-left: 16px;';
-        msg_time.style.cssText = 'margin-left: 5px;'
-
-        let time = new Date(e.time);
-        msg_name.textContent = e.nickname;
-        msg_text.textContent = e.text;
+        // make it right aligned and shift timestamp to left of message
+        msg_item.style.cssText = 'float: right; margin-right: 16px; align-self: flex-end;';
+        msg_name.style.cssText = 'float: right; margin-right: 16px;';
+        msg_time.style.cssText = 'margin-right: 5px;';
+        msg_text.style.cssText = 'background:' + msg.color + ';';
+        msg_textntime.style.cssText = 'clear:right;';
+        let time = new Date(msg.time);
+        msg_name.textContent = msg.nickname;
+        msg_text.textContent = msg.text;
         msg_time.textContent = (time.getHours() < 10 ? '0' : '') + time.getHours() + ":" +
             (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
-        msg_textntime.appendChild(msg_text);
+
         msg_textntime.appendChild(msg_time);
+        msg_textntime.appendChild(msg_text);
         msg_item.appendChild(msg_name);
         msg_item.appendChild(msg_textntime);
+
+        return msg_item;
+    }
+});
+
+// load chat history
+socket.on('load_chat_history', (chat_log) => {
+    chat_log.forEach((msg) => {
+        let msg_item = display_otherUser_msg(msg);
         messages.appendChild(msg_item);
         messages.scrollTop = messages.scrollHeight;
     });
@@ -247,6 +230,30 @@ socket.on('load_chat_users', (users) => {
         display_users.appendChild(user_item);
     })
 })
+
+function display_otherUser_msg(msg) {
+    let msg_item = document.createElement('li');
+    let msg_name = document.createElement('div');
+    let msg_textntime = document.createElement('div');
+    let msg_text = document.createElement('p');
+    let msg_time = document.createElement('span');
+    let time = new Date(msg.time);
+    msg_name.textContent = msg.nickname;
+    msg_text.textContent = msg.text;
+    msg_time.textContent = (time.getHours() < 10 ? '0' : '') + time.getHours() + ":" +
+        (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
+
+    msg_name.style.cssText = 'margin-left: 16px;';
+    msg_text.style.cssText = 'background:' + msg.color;
+    msg_time.style.cssText = 'margin-left: 5px;';
+
+    msg_textntime.appendChild(msg_text);
+    msg_textntime.appendChild(msg_time);
+    msg_item.appendChild(msg_name);
+    msg_item.appendChild(msg_textntime);
+
+    return msg_item;
+}
 
 // https://www.w3schools.com/howto/howto_js_snackbar.asp
 function user_notification(message) {
