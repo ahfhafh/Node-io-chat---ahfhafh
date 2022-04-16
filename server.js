@@ -80,10 +80,10 @@ io.on('connection', (socket) => {
         const msg = { text: text, time: time, nickname: socket.data.nickname, color: socket.data.color };
 
         if (chat_log.length <= 200) { // record last 200 messages
-            chat_log.unshift(msg);
+            chat_log.push(msg);
         } else {
-            chat_log.pop();
-            chat_log.unshift(msg);
+            chat_log.shift();
+            chat_log.push(msg);
         }
 
         io.emit('chat message', msg);

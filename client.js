@@ -174,14 +174,12 @@ socket.on('c_change', (nn, new_c) => {
 
 // receive chat message
 socket.on('chat message', (msg) => {
-    let msg_item;
     if (msg.nickname === nickname) {    // current client sending
-        msg_item = display_clientUser_msg();
+        display_clientUser_msg();
     } else {    // other users sending
         // make it left aligned and shift timestamp to right of message
-        msg_item = display_otherUser_msg(msg);
+        display_otherUser_msg(msg);
     }
-    messages.prepend(msg_item);
     messages.scrollTop = messages.scrollHeight;
 
     function display_clientUser_msg() {
@@ -190,35 +188,48 @@ socket.on('chat message', (msg) => {
         let msg_textntime = document.createElement('div');
         let msg_text = document.createElement('p');
         let msg_time = document.createElement('span');
-
-        // make it right aligned and shift timestamp to left of message
-        msg_item.style.cssText = 'float: right; margin-right: 16px; align-self: flex-end;';
-        msg_name.style.cssText = 'float: right; margin-right: 16px;';
-        msg_time.style.cssText = 'margin-right: 5px;';
-        msg_text.style.cssText = 'background:' + msg.color + ';';
-        msg_textntime.style.cssText = 'clear:right;';
         let time = new Date(msg.time);
+
         msg_name.textContent = msg.nickname;
         msg_text.textContent = msg.text;
         msg_time.textContent = (time.getHours() < 10 ? '0' : '') + time.getHours() + ":" +
             (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
 
+        // make it right aligned and shift timestamp to left of message
+        msg_item.style.cssText = 'float: right; margin-right: 16px; align-self: flex-end;';
+        msg_name.style.cssText = 'float: right; margin-right: 16px;';
+        msg_name.style.display = 'none';
+        msg_time.style.marginRight = '5px';
+        msg_text.style.background = msg.color;
+        msg_textntime.style.clear = 'right';
+
+        msg_item.appendChild(msg_name);
         msg_textntime.appendChild(msg_time);
         msg_textntime.appendChild(msg_text);
-        msg_item.appendChild(msg_name);
-        msg_item.appendChild(msg_textntime);
 
-        return msg_item;
+        // if previous message is not from the same user
+        if (messages.firstElementChild?.firstElementChild.textContent !== msg.nickname) {
+            msg_name.style.marginLeft = '16px;';
+            msg_name.style.display = 'block';
+            msg_item.style.marginTop = '16px';
+        } else { // if previous message is from the same user
+            let timeElement = messages.firstElementChild?.children[1].getElementsByTagName('span')[0];
+            if (timeDiff(timeElement.textContent, msg_time.textContent) < 1) {
+                timeElement.style.display = 'none';
+            }
+        }
+
+        msg_item.appendChild(msg_textntime);
+        messages.prepend(msg_item);
     }
 });
 
 // load chat history
 socket.on('load_chat_history', (chat_log) => {
     chat_log.forEach((msg) => {
-        let msg_item = display_otherUser_msg(msg);
-        messages.appendChild(msg_item);
-        messages.scrollTop = messages.scrollHeight;
+        display_otherUser_msg(msg);
     });
+    messages.scrollTop = messages.scrollHeight;
 })
 
 // load chat users
@@ -233,26 +244,39 @@ socket.on('load_chat_users', (users) => {
 
 function display_otherUser_msg(msg) {
     let msg_item = document.createElement('li');
-    let msg_name = document.createElement('div');
     let msg_textntime = document.createElement('div');
     let msg_text = document.createElement('p');
+    let msg_name = document.createElement('div');
     let msg_time = document.createElement('span');
     let time = new Date(msg.time);
-    msg_name.textContent = msg.nickname;
+
     msg_text.textContent = msg.text;
+    msg_name.textContent = msg.nickname;
     msg_time.textContent = (time.getHours() < 10 ? '0' : '') + time.getHours() + ":" +
         (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
 
-    msg_name.style.cssText = 'margin-left: 16px;';
-    msg_text.style.cssText = 'background:' + msg.color;
-    msg_time.style.cssText = 'margin-left: 5px;';
+    msg_name.style.display = 'none';
+    msg_name.style.marginLeft = '16px';
+    msg_text.style.background = msg.color;
+    msg_time.style.marginLeft = '5px';
 
+    msg_item.appendChild(msg_name);
     msg_textntime.appendChild(msg_text);
     msg_textntime.appendChild(msg_time);
-    msg_item.appendChild(msg_name);
-    msg_item.appendChild(msg_textntime);
 
-    return msg_item;
+    // if previous message is not from the same user
+    if (messages.firstElementChild?.firstElementChild.textContent !== msg.nickname) {
+        msg_name.style.display = 'block';
+        msg_item.style.marginTop = '16px';
+    } else { // if previous message is from the same user
+        let timeElement = messages.firstElementChild?.children[1].getElementsByTagName('span')[0];
+        if (timeDiff(timeElement.textContent, msg_time.textContent) < 1) {
+            timeElement.style.display = 'none';
+        }
+    }
+
+    msg_item.appendChild(msg_textntime);
+    messages.prepend(msg_item);
 }
 
 // https://www.w3schools.com/howto/howto_js_snackbar.asp
@@ -305,4 +329,15 @@ function removeUser(nn) {
     if (user_items !== null) {
         user_items.remove();
     }
+}
+
+function timeDiff(start, end) {
+    start = start.split(":");
+    end = end.split(":");
+    var startDate = new Date(0, 0, 0, start[0], start[1], 0);
+    var endDate = new Date(0, 0, 0, end[0], end[1], 0);
+    var diff = endDate.getTime() - startDate.getTime();
+    var minutes = Math.floor(diff / 1000 / 60);
+
+    return minutes;
 }
