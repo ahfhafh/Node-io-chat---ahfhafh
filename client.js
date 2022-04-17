@@ -188,6 +188,7 @@ socket.on('chat message', (msg) => {
         let msg_textntime = document.createElement('div');
         let msg_text = document.createElement('p');
         let msg_time = document.createElement('span');
+        let col_8_width = document.getElementsByClassName('col-8')[0].offsetWidth;
         let time = new Date(msg.time);
 
         msg_name.textContent = msg.nickname;
@@ -199,8 +200,10 @@ socket.on('chat message', (msg) => {
         msg_item.classList.add('right_align_item');
         msg_name.classList.add('right_align_name');
         msg_text.classList.add('right_align_text');
+        msg_text.classList.add('msg_text');
         msg_time.classList.add('right_align_time');
         msg_text.style.border = '3px solid ' + msg.color;
+        msg_text.style.maxWidth = col_8_width - 150 + 'px';
         msg_textntime.style.clear = 'right';
 
         // if previous message is not from the same user
@@ -250,6 +253,7 @@ function display_otherUser_msg(msg) {
     let msg_text = document.createElement('p');
     let msg_name = document.createElement('div');
     let msg_time = document.createElement('span');
+    let col_8_width = document.getElementsByClassName('col-8')[0].offsetWidth;
     let time = new Date(msg.time);
 
     msg_text.textContent = msg.text;
@@ -258,6 +262,8 @@ function display_otherUser_msg(msg) {
         (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
 
     msg_text.style.border = '3px solid ' + msg.color;
+    msg_text.style.maxWidth = col_8_width - 150 + 'px';
+    msg_text.classList.add('msg_text');
 
     // if previous message is not from the same user
     if (messages.firstElementChild?.firstElementChild.textContent !== msg.nickname) {
@@ -330,7 +336,7 @@ function removeUser(nn) {
     if (user_items !== null) {
         user_items.remove();
     }
-}
+};
 
 function timeDiff(start, end) {
     start = start.split(":");
@@ -341,4 +347,22 @@ function timeDiff(start, end) {
     var minutes = Math.floor(diff / 1000 / 60);
 
     return minutes;
+};
+
+window.onload = () => {
+    const col_8_width = document.getElementsByClassName('col-8')[0].offsetWidth;
+    let msg_text = document.getElementsByClassName('msg_text');
+
+    for (var i = 0; i < msg_text.length; i++) {
+        msg_text[i].style.maxWidth = col_8_width - 150 + 'px';
+    };
+}
+
+window.onresize = () => {
+    const col_8_width = document.getElementsByClassName('col-8')[0].offsetWidth;
+    let msg_text = document.getElementsByClassName('msg_text');
+
+    for (var i = 0; i < msg_text.length; i++) {
+        msg_text[i].style.maxWidth = col_8_width - 150 + 'px';
+    };
 }
