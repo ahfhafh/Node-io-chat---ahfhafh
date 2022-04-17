@@ -200,7 +200,7 @@ socket.on('chat message', (msg) => {
         msg_name.classList.add('right_align_name');
         msg_text.classList.add('right_align_text');
         msg_time.classList.add('right_align_time');
-        msg_text.style.background = msg.color;
+        msg_text.style.border = '3px solid ' + msg.color;
         msg_textntime.style.clear = 'right';
 
         // if previous message is not from the same user
@@ -257,7 +257,7 @@ function display_otherUser_msg(msg) {
     msg_time.textContent = (time.getHours() < 10 ? '0' : '') + time.getHours() + ":" +
         (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
 
-    msg_text.style.background = msg.color;
+    msg_text.style.border = '3px solid ' + msg.color;
 
     // if previous message is not from the same user
     if (messages.firstElementChild?.firstElementChild.textContent !== msg.nickname) {
