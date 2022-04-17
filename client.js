@@ -196,11 +196,10 @@ socket.on('chat message', (msg) => {
             (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
 
         // make it right aligned and shift timestamp to left of message
-        msg_item.style.cssText = 'float: right; margin-right: 16px; align-self: flex-end;';
-        msg_name.style.cssText = 'float: right; margin-right: 16px;';
-        msg_name.style.display = 'none';
-        msg_time.style.marginRight = '5px';
-        msg_text.style.borderRadius = '15px';
+        msg_item.classList.add('right_align_item');
+        msg_name.classList.add('right_align_name');
+        msg_text.classList.add('right_align_text');
+        msg_time.classList.add('right_align_time');
         msg_text.style.background = msg.color;
         msg_textntime.style.clear = 'right';
 
@@ -258,11 +257,7 @@ function display_otherUser_msg(msg) {
     msg_time.textContent = (time.getHours() < 10 ? '0' : '') + time.getHours() + ":" +
         (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
 
-    msg_name.style.display = 'none';
-    msg_name.style.marginLeft = '16px';
     msg_text.style.background = msg.color;
-    msg_text.style.borderRadius = '15px';
-    msg_time.style.marginLeft = '5px';
 
     // if previous message is not from the same user
     if (messages.firstElementChild?.firstElementChild.textContent !== msg.nickname) {
