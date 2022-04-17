@@ -20,8 +20,7 @@ body {
   top: 0;
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.85);
 }
 
 .modal-content {
@@ -359,9 +358,18 @@ body {
   background-clip: padding-box;
 }
 
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+  .modal {
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+}
+
 @media (max-width: 768px) {
   body {
     margin: 0;
+    padding: 0;
   }
 
   .modal_inputs>input {
@@ -387,13 +395,14 @@ body {
     height: 100%;
     border-radius: 0;
     margin-left: 0;
+    border: 0;
   }
 
   .col-8 {
     height: 100%;
-    margin-left: 0;
-    margin-right: 0;
+    width: 98vw;
     border-radius: 0;
+    border: 0;
   }
 
   #chat_form {
