@@ -20,8 +20,8 @@ body {
   top: 0;
   width: 100%;
   height: 100%;
-  backdrop-filter: blur( 10px );
-  -webkit-backdrop-filter: blur( 10px );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .modal-content {
@@ -29,10 +29,10 @@ body {
   padding: 50px 16px;
   width: 75%;
   max-width: 550px;
-  background: rgba( 0, 0, 0, 0.75 );
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  background: rgba(0, 0, 0, 0.75);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   border-radius: 10px;
-  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .modal-content>* {
@@ -52,7 +52,7 @@ body {
   width: calc(100% - 150px);
 }
 
-.modal_inputs>select{
+.modal_inputs>select {
   border-radius: 5px;
   font-size: 1.5rem;
   background-color: rgb(51, 51, 51);
@@ -124,6 +124,7 @@ body {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(0, 0, 0, 1);
+  overflow: hidden;
 }
 
 #chat_form {
@@ -175,7 +176,8 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow-y: auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 #messages>li {
@@ -190,28 +192,57 @@ body {
 
 /* default style for left aligned recieved messages */
 
-#messages>li>div {
+#messages>li>div:first-child {
   /* name */
+  display: none;
+  margin-left: 16px;
+}
+
+#messages>li>div {
+  /* name and time */
   font-size: 0.75rem;
 }
 
 #messages>li>div>p {
   /* text */
-  display: inline-block;
-  /* allows timestamp to be on the same line*/
-  margin-block-start: 2px;
+  display: inline-block;    /* allows timestamp to be on the same line*/
+  margin-block-start: 0;
   font-size: 1rem;
   word-break: break-all;
   padding: 0.5rem 1rem;
-  max-width: calc(100vw - 480px);
-  margin-block-end: 0;
-    /* give space for timestamp and list of users */
+  max-width: calc(25.5rem);
+  margin-block-end: 2px;
+  border-radius: 15px;
+  
 }
 
 #messages>li>div>span {
   /* timestamp */
   font-size: 0.8rem;
   font-weight: lighter;
+  margin-left: 5px;
+}
+
+/* right aigned messages */
+
+.right_align_item {
+  float: right;
+  margin-right: 16px;
+  align-self: flex-end;
+}
+
+.right_align_name {
+  float: right;
+  margin-right: 16px;
+  display: none;
+}
+
+.right_align_text {
+  border-radius: 15px;
+}
+
+.right_align_time {
+  margin-right: 5px;
 }
 
 /* ------------------------------------------------*/
@@ -226,7 +257,7 @@ body {
   right: 32px;
   top: 16px;
   z-index: 3;
-  color:rgb(201, 201, 201);
+  color: rgb(201, 201, 201);
   background-color: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(0, 0, 0, 1);
 }
@@ -246,8 +277,8 @@ body {
   visibility: hidden;
   min-width: 250px;
   margin-left: -125px;
-  background: rgba( 0, 0, 0, 0.75 );
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  background: rgba(0, 0, 0, 0.75);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   color: #fff;
   text-align: center;
   border-radius: 5px;
@@ -313,6 +344,23 @@ body {
   }
 }
 
+/* ------------------------ scroll bar -----------------------*/
+/* width */
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f17b;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+  background-clip: padding-box;
+}
 
 @media (max-width: 768px) {
   body {
