@@ -49,7 +49,7 @@ body {
 
 .modal_inputs input[type=text] {
   /* give space for color selector */
-  width: calc(100% - 150px);
+  width: calc(100% - 170px);
 }
 
 .modal_inputs>select {
@@ -370,7 +370,7 @@ body {
 
   .modal_inputs input[type=text] {
     /* give space for color selector */
-    width: calc(100% - 120px);
+    width: calc(100% - 140px);
   }
 
   .modal_inputs>select {
