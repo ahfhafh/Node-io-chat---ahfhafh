@@ -366,3 +366,6 @@ window.onresize = () => {
         msg_text[i].style.maxWidth = col_8_width - 150 + 'px';
     };
 }
+
+// TODO: show commands
+// TODO: typing...
