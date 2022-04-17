@@ -300,12 +300,8 @@ function show_users() {
     if (users_sidebar[0].style.display === "none") {
         users_sidebar[0].style.display = "block";
         users_sidebar[0].style.position = "absolute";
-
-        chat_form.style.display = "none";
     } else {
         users_sidebar[0].style.display = "none";
-
-        chat_form.style.display = "flex";
     }
 }
 
@@ -350,6 +346,10 @@ function timeDiff(start, end) {
 };
 
 window.onload = () => {
+    if (this.window.innerWidth <= 768) {
+        users_sidebar[0].style.display = "none";
+    }
+    
     const col_8_width = document.getElementsByClassName('col-8')[0].offsetWidth;
     let msg_text = document.getElementsByClassName('msg_text');
 
