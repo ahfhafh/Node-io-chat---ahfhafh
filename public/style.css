@@ -199,8 +199,7 @@ body {
   /* text */
   display: inline-block;
   /* allows timestamp to be on the same line*/
-  margin-block-start: 0;
-  border-radius: 25px;
+  margin-block-start: 2px;
   font-size: 1rem;
   word-break: break-all;
   padding: 0.5rem 1rem;

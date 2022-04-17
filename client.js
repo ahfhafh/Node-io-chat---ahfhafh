@@ -200,12 +200,9 @@ socket.on('chat message', (msg) => {
         msg_name.style.cssText = 'float: right; margin-right: 16px;';
         msg_name.style.display = 'none';
         msg_time.style.marginRight = '5px';
+        msg_text.style.borderRadius = '15px';
         msg_text.style.background = msg.color;
         msg_textntime.style.clear = 'right';
-
-        msg_item.appendChild(msg_name);
-        msg_textntime.appendChild(msg_time);
-        msg_textntime.appendChild(msg_text);
 
         // if previous message is not from the same user
         if (messages.firstElementChild?.firstElementChild.textContent !== msg.nickname) {
@@ -217,8 +214,14 @@ socket.on('chat message', (msg) => {
             if (timeDiff(timeElement.textContent, msg_time.textContent) < 1) {
                 timeElement.style.display = 'none';
             }
+            let textElement = messages.firstElementChild?.children[1].getElementsByTagName('p')[0];
+            textElement.style.borderBottomRightRadius = '3px';
+            msg_text.style.borderTopRightRadius = '3px';
         }
 
+        msg_item.appendChild(msg_name);
+        msg_textntime.appendChild(msg_time);
+        msg_textntime.appendChild(msg_text);
         msg_item.appendChild(msg_textntime);
         messages.prepend(msg_item);
     }
@@ -258,11 +261,8 @@ function display_otherUser_msg(msg) {
     msg_name.style.display = 'none';
     msg_name.style.marginLeft = '16px';
     msg_text.style.background = msg.color;
+    msg_text.style.borderRadius = '15px';
     msg_time.style.marginLeft = '5px';
-
-    msg_item.appendChild(msg_name);
-    msg_textntime.appendChild(msg_text);
-    msg_textntime.appendChild(msg_time);
 
     // if previous message is not from the same user
     if (messages.firstElementChild?.firstElementChild.textContent !== msg.nickname) {
@@ -273,8 +273,14 @@ function display_otherUser_msg(msg) {
         if (timeDiff(timeElement.textContent, msg_time.textContent) < 1) {
             timeElement.style.display = 'none';
         }
+        let textElement = messages.firstElementChild?.children[1].getElementsByTagName('p')[0];
+        textElement.style.borderBottomLeftRadius = '3px';
+        msg_text.style.borderTopLeftRadius = '3px';
     }
 
+    msg_item.appendChild(msg_name);
+    msg_textntime.appendChild(msg_text);
+    msg_textntime.appendChild(msg_time);
     msg_item.appendChild(msg_textntime);
     messages.prepend(msg_item);
 }
