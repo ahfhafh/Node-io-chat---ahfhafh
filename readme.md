@@ -1,4 +1,5 @@
-Simple chat app
+# Simple chat app
+
 Node io, javascript, html, css
 
 > npm install
