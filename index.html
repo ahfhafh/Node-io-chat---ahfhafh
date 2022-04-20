@@ -6,6 +6,7 @@
     <title>Simple chat app</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/style.css">
+    <script src="https://kit.fontawesome.com/eb8a295876.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -28,17 +29,28 @@
         </form>
     </div>
 
+    <div id="info_modal" class="modal" style="display: none;">
+        <div class="modal-content" style="padding: 1rem 3rem;">
+            <span class="close_modal_info" onclick="close_info_modal()">&times;</span>
+            <h1 style="color: aliceblue;">About:</h1>
+            <a href="https://github.com/ahfhafh/Node-io-chat---ahfhafh" style="color: aliceblue; margin-left: 1rem;">Github</a>
+            <h1 style="color: aliceblue;">Commands:</h1>
+            <p style="color: aliceblue; margin-left: 1rem;"><span style="color: #ff4848">/nick</span> to change nickname</p>
+            <p style="color: aliceblue; margin-left: 1rem;"><span style="color: #ff4848">/nickcolor &lt;RRGGBB&gt;</span> to change colour</p>
+        </div>
+    </div>
+
     <button onclick="show_users()" id="show_users">Users</button>
     <div class="col-4">
         <h1>Users</h1>
         <ul id="users"></ul>
     </div>
     <div class="col-8">
+        <i id="info" class="fa-solid fa-circle-info fa-2xl" onclick="show_info_modal()"></i>
         <ul id="messages"></ul>
         <form id="chat_form" action="">
             <input id="chat_input" autocomplete="off" />
             <button>Send</button>
-            <button id="change_nickn">Leave</button>
         </form>
     </div>
     <div id="snackbar"></div>

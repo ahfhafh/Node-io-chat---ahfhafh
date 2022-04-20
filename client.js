@@ -11,8 +11,8 @@ let users_sidebar = document.getElementsByClassName("col-4");
 
 var welcome_form_modal = document.getElementById("welcome_form_modal");
 var welcome_form = document.getElementById("welcome_form");
-var modal_show = document.getElementById("change_nickn");
 var modal_close = document.getElementsByClassName("close_btn")[0];
+var info_modal = document.getElementById("info_modal");
 
 var nickname = "default_nickname";
 var color = "#b36b97";
@@ -67,7 +67,7 @@ welcome_form.addEventListener('submit', (e) => {
 })
 
 // user leaves
-modal_show.onclick = () => {
+function show_modal() {
     welcome_form_modal.style.display = "block";
     const i = chat_users.indexOf(nickname);
     if (i > -1) {
@@ -93,7 +93,13 @@ socket.on('add_user', (nn) => {
     let user_item = document.createElement('li');
     user_item.textContent = nn;
     if (nickname === nn) {
+        user_item.id = 'current_user';
         user_item.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
+        let leaveBtn = document.createElement('button');
+        leaveBtn.setAttribute("onclick", "show_modal()");
+        leaveBtn.id = 'change_nickn';
+        leaveBtn.innerText = 'leave';
+        user_item.appendChild(leaveBtn);
     }
     users.appendChild(user_item);
 })
@@ -349,7 +355,7 @@ window.onload = () => {
     if (this.window.innerWidth <= 768) {
         users_sidebar[0].style.display = "none";
     }
-    
+
     const col_8_width = document.getElementsByClassName('col-8')[0].offsetWidth;
     let msg_text = document.getElementsByClassName('msg_text');
 
@@ -367,5 +373,17 @@ window.onresize = () => {
     };
 }
 
-// TODO: show commands
+function show_info_modal() {
+    info_modal.style.display = 'block';
+}
+
+function close_info_modal() {
+    info_modal.style.display = 'none';
+}
+
+window.onclick = function (event) {
+    if (event.target == info_modal) {
+        info_modal.style.display = 'none';
+    }
+}
 // TODO: typing...

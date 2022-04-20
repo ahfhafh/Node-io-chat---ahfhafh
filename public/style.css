@@ -85,6 +85,21 @@ body {
   cursor: pointer;
 }
 
+.close_modal_info {
+  color: #aaa;
+  float: right;
+  font-size: 2.25rem;
+  font-weight: bold;
+  margin-top: 0;
+}
+
+.close_modal_info:hover,
+.close_modal_info:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 /* ------------------------------------------------------------------------- */
 
 .col-4 {
@@ -126,6 +141,17 @@ body {
   overflow: hidden;
 }
 
+#info {
+  position: fixed;
+  right: 0;
+  margin-right: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+#info:hover {
+  color: #aaa;
+}
+
 #chat_form {
   display: flex;
   margin-left: -16px;
@@ -142,6 +168,7 @@ body {
   flex-grow: 1;
   border-radius: 2rem;
   margin: 0.25rem;
+  margin-left: 0.5rem;
 }
 
 #chat_input:focus {
@@ -200,7 +227,8 @@ body {
 
 #messages>li>div>p {
   /* text */
-  display: inline-block;    /* allows timestamp to be on the same line*/
+  display: inline-block;
+  /* allows timestamp to be on the same line*/
   margin-block-start: 0;
   font-size: 1rem;
   word-break: break-all;
@@ -209,7 +237,7 @@ body {
   border-radius: 15px;
   background-color: rgba(255, 255, 255, 0.2);
   border: 5px solid white;
-  
+
 }
 
 #messages>li>div>span {
@@ -250,8 +278,8 @@ body {
   font-size: 1.5rem;
   border-radius: 5px;
   padding: 5px 10px;
-  right: 32px;
-  top: 16px;
+  right: 5rem;
+  top: 1rem;
   z-index: 3;
   color: rgb(201, 201, 201);
   background-color: rgba(0, 0, 0, 0.2);
@@ -266,6 +294,29 @@ body {
 #users {
   list-style-type: none;
   border: rgba(0, 0, 0, 0.15)
+}
+
+#users>li {
+  padding: 5px 1rem;
+}
+
+#current_user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#change_nickn {
+  font-size: 0.75rem;
+  padding: 0.25rem 1rem;
+  background-color: rgba(255, 50, 50, 0.5);
+  border-radius: 0.5rem;
+  text-decoration: none;
+  border: none;
+}
+
+#change_nickn:hover {
+  background-color: #be0000;
 }
 
 /* https://www.w3schools.com/howto/howto_js_snackbar.asp */
@@ -389,9 +440,14 @@ body {
     font-size: 1rem;
   }
 
+  #chat_input {
+    margin-left: 1rem;
+  }
+
   .col-4 {
     z-index: 2;
     height: 100%;
+    width: 100%;
     border-radius: 0;
     margin-left: 0;
     border: 0;
@@ -402,6 +458,10 @@ body {
     width: 98vw;
     border-radius: 0;
     border: 0;
+  }
+
+  #info {
+    top: 0.75rem;
   }
 
   #chat_form {
